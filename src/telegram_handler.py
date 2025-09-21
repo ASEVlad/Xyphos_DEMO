@@ -54,6 +54,7 @@ def handle_telegram_updates():
                 if update_id in handled_updates:
                     continue
 
+                logger.info("There is one more update message to handle!")
                 if message_text.lower() == "/start":
                     if chat_id not in load_registered_users():
                         save_registered_user(chat_id)
