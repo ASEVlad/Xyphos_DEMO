@@ -138,7 +138,8 @@ def generate_opponent_announcement_message_2(opponent_chat_id):
 def generate_battle_message(parsed_fight_info):
     message = (
         f"\n{parsed_fight_info['Story']}"
-        f""
+        f"\n"
+        f"\n"
         f"\nMechanics:"
         f"\n{parsed_fight_info['Mechanics']}"
         f"\n"

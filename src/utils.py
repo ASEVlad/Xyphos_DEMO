@@ -198,9 +198,9 @@ def parse_battle_text(text):
     }
 
 
-def save_battle_records_to_csv(data, first_chat_id, second_chat_id):
+def save_battle_records_to_csv(fight_info, data, first_chat_id, second_chat_id):
     # Define headers
-    headers = ['ID', 'Timestamp', 'First_Chat_ID', 'Second_Chat_ID', 'Story', 'Mechanics', 'Winner']
+    headers = ['ID', 'Timestamp', 'First_Chat_ID', 'Second_Chat_ID', 'Full text', 'Story', 'Mechanics', 'Winner']
 
     # Get current timestamp
     timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -219,6 +219,7 @@ def save_battle_records_to_csv(data, first_chat_id, second_chat_id):
         'Timestamp': timestamp,
         'First_Chat_ID': first_chat_id,
         'Second_Chat_ID': second_chat_id,
+        'Full text': fight_info,
         'Story': data['Story'],
         'Mechanics': data['Mechanics'],
         'Winner': data['Winner']
