@@ -13,6 +13,7 @@ from src.utils import get_creature_appearance_path, set_stats, set_creature_para
 
 
 def handle_operation(bot: Bot, chat_id: str, message_text: str):
+    logger.info(f"Chat_id {chat_id}: Received message: {message_text}")
     if message_text.lower().startswith("/mint"):
         handle_mint_action(bot, chat_id, message_text)
     elif message_text.lower().startswith("/name"):
@@ -29,11 +30,13 @@ def handle_operation(bot: Bot, chat_id: str, message_text: str):
         handle_executive_summary_action(bot, chat_id)
     else:
         bot.send_message(chat_id=chat_id, text=wrong_command_message)
+    logger.info(f"Chat_id {chat_id}: Operation was successfully processed")
 
 
 # MINT
 def handle_mint_action(bot: Bot, chat_id: str, message_text: str):
     try:
+        logger.info(f"Chat_id {chat_id}: Starting mint action")
         photo_ready_event = threading.Event()
         threading.Thread(target=run_creature_generation, args=(bot, chat_id, message_text, photo_ready_event)).start()
         time.sleep(15)
@@ -41,6 +44,8 @@ def handle_mint_action(bot: Bot, chat_id: str, message_text: str):
         time.sleep(15)
         bot.send_message(chat_id=chat_id, text=proper_mint_message_3)
         photo_ready_event.set()
+        logger.info(f"Chat_id {chat_id}: Finished mint action")
+
     except Exception as error:
         logger.error(f"Chat_ID {chat_id}: {error}")
         bot.send_message(chat_id=chat_id, text=error_message)
@@ -48,6 +53,7 @@ def handle_mint_action(bot: Bot, chat_id: str, message_text: str):
 
 def run_creature_generation(bot: Bot, chat_id: str, message_text: str, photo_ready_event):
     try:
+        logger.info(f"Chat_id {chat_id}: Starting creature appearance generation")
         creature_description = message_text[5:].strip()
         if len(creature_description) == 0:
             creature_description = "Fairy from the hell with head of medusa from Greek mythology"
@@ -62,6 +68,8 @@ def run_creature_generation(bot: Bot, chat_id: str, message_text: str, photo_rea
         photo_ready_event.wait()
         with open(abs_character_appearance_path, "rb") as photo:
             bot.send_photo(chat_id=chat_id, photo=photo, caption=generated_character_message)
+
+        logger.info(f"Chat_id {chat_id}: Creature appearance generation complete")
     except Exception as error:
         logger.error(f"Chat_ID {chat_id}: {error}")
         bot.send_message(chat_id=chat_id, text=error_message)
@@ -70,12 +78,15 @@ def run_creature_generation(bot: Bot, chat_id: str, message_text: str, photo_rea
 # NAME
 def handle_name_action(bot: Bot, chat_id: str, message_text: str):
     try:
+        logger.info(f"Chat_id {chat_id}: Starting name action")
         if message_text.strip() == "/name":
             bot.send_message(chat_id=chat_id, text=empty_name_message)
         else:
             creature_name = message_text[5:].strip()
             set_creature_param(chat_id, "name", creature_name)
             bot.send_message(chat_id=chat_id, text=proper_name_message)
+
+        logger.info(f"Chat_id {chat_id}: Name action complete")
     except Exception as error:
         logger.error(f"Chat_ID {chat_id}: {error}")
         bot.send_message(chat_id=chat_id, text=error_message)
@@ -84,6 +95,7 @@ def handle_name_action(bot: Bot, chat_id: str, message_text: str):
 # STATS
 def handle_stats_action(bot: Bot, chat_id: str):
     try:
+        logger.info(f"Chat_id {chat_id}: Starting stats action")
         bot.send_message(chat_id=chat_id, text=stats_message)
 
         creature_appearance_path = get_creature_appearance_path(chat_id)
@@ -118,6 +130,8 @@ def handle_stats_action(bot: Bot, chat_id: str):
         time.sleep(20)
 
         bot.send_message(chat_id=chat_id, text=try_pvp_message)
+
+        logger.info(f"Chat_id {chat_id}: Stats action complete")
     except Exception as error:
         logger.error(f"Chat_ID {chat_id}: {error}")
         bot.send_message(chat_id=chat_id, text=error_message)
@@ -130,6 +144,7 @@ def handle_training_action(bot, chat_id, message_text):
 # PVP
 def handle_pvp_action(bot, first_player_chat_id):
     try:
+        logger.info(f"Chat_id {first_player_chat_id}: Starting PVP action")
         bot.send_message(chat_id=first_player_chat_id, text=pvp_start_message)
         time.sleep(2)
 
@@ -169,6 +184,7 @@ def handle_pvp_action(bot, first_player_chat_id):
         time.sleep(20)
 
         bot.send_message(chat_id=first_player_chat_id, text=generate_battle_message(parsed_fight_info))
+        logger.info(f"Chat_id {first_player_chat_id}: PVP action complete")
     except Exception as error:
         logger.error(f"Chat_ID {first_player_chat_id}: {error}")
         bot.send_message(chat_id=first_player_chat_id, text=error_message)
