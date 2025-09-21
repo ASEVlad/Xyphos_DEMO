@@ -120,7 +120,7 @@ def generate_opponent_announcement_message_1(opponent_chat_id):
     opponent_player_creature_name = get_creature_param(opponent_chat_id, "name")
     message = (
         f"\nYour Opponent:"
-        f"\nName:"
+        f"\n"
         f"\n{opponent_player_creature_name}"
     )
 
@@ -141,6 +141,8 @@ def generate_battle_message(parsed_fight_info):
         f""
         f"\nMechanics:"
         f"\n{parsed_fight_info['Mechanics']}"
+        f"\n"
+        f"\n --------"
         f"\n"
     )
 
