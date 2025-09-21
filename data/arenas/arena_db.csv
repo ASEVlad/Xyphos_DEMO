@@ -1,0 +1,105 @@
+name,description,lore_message
+Stone Colosseum,"
+General Layout
+Shape & Size:
+A vast, circular arena carved entirely from pale sandstone. Diameter: ~120m (big enough for large-scale battles).
+Floor:
+The ground is layered with compact golden sand, thin enough to see hints of stone underneath. Sand kicks up during battles, leaving trails of creature movements.
+Walls:
+Colossal walls rise 20m high, built of massive stone blocks, weathered and cracked from centuries of combat.
+Entrances:
+Four massive iron gates at cardinal points (N/S/E/W), used for creature entrances. Above each gate: engraved emblems (lion, serpent, eagle, bull) representing past champions.
+
+Environmental Details
+Central Circle:
+A slightly raised stone disk in the middle (10m wide), polished smooth from battles. It acts as the symbolic “clash point” where many fights begin.
+Weathering & Battle Scars:
+The floor has cracks, broken tiles, and scorch marks from countless battles — visual reminders of fire blasts, thunder strikes, and heavy impacts.
+Arena Boundaries:
+Small grooves carved into the ground at the edges glow faintly at night (magical containment runes to prevent creatures from escaping).
+
+Mechanics / Battle Impact
+Neutral Ground:
+No elemental bias → all creature types fight equally well here.
+Sand Floor Effects:
+Sand slows down creatures with heavy movement (slight agility penalty).
+Quick/Agile creatures can leave sand trails, revealing movement patterns.
+Central Disk:
+Slippery polished surface = harder footing.
+Winning control of the central platform gives a positional advantage (visibility + intimidation).
+
+Rune Boundaries:
+Prevent creatures from being thrown outside.
+If a creature gets smashed into the walls, a “rebound effect” happens: they bounce slightly, creating dramatic clashes.
+","
+This clearing is said to be blessed by an ancient Forest Spirit, who allows only the bravest to fight under its gaze. Some claim the spirit itself watches battles, hidden in the canopy.
+"
+Forest Clearing,"
+General Layout
+Shape & Size:
+A natural oval-shaped glade hidden deep inside an ancient forest, about 100m across.
+Floor:
+A mix of lush grass, damp soil, and patches of moss, soft underfoot and muffling footsteps. Scattered roots snake across the ground, forming natural obstacles.
+Boundaries:
+Instead of walls, the arena is encircled by towering ancient trees (30–40m tall) with thick canopies. The trunks form a natural “living wall,” their roots weaving into an almost impassable barrier.
+
+Environmental Details
+Canopy Cover:
+Dense leaves allow dappled sunlight to stream through, creating shifting light and shadow patterns — perfect for hiding or sudden ambushes.
+Natural Features:
+Small Pond near one side (10m wide) with crystal-clear water, where water creatures can refresh themselves.
+Fallen Logs & Rocks scattered around as natural cover.
+Bush Clusters that rustle when passed through, betraying creature movement.
+Wildlife (Non-interactive atmosphere):
+Birds scatter at sudden roars, distant wolf howls echo beyond the trees, and fireflies appear at dusk.
+
+Battle Mechanics
+Nature/Animal Types blend with the environment, making it harder to track their movements (slight stealth/dodge bonus).
+Fire-Type Handicap 🔥
+Fire abilities risk igniting leaves or dry bark, causing backlash (self-burn = 5–10% recoil damage if fire moves are overused).
+Heat from fire skills also drains stamina faster in this moist, oxygen-rich forest.
+Cover & Stealth Effects 🌿
+Bushes and logs allow creatures to hide briefly; attacks made from stealth deal bonus damage.
+Quick creatures can dart between shadows, harder to target with long-range abilities.
+Terrain Hazards ⚡
+Slippery roots/trunks: Heavy creatures may trip or stumble if agility is low.
+Pond: Provides a small elemental zone where water creatures fight better but others may move slower.
+","
+This clearing is said to be blessed by an ancient Forest Spirit, who allows only the bravest to fight under its gaze. Some claim the spirit itself watches battles, hidden in the canopy.
+"
+Volcanic Crater,"
+General Layout
+Shape & Size:
+A wide bowl-shaped battlefield (~140m across), carved from black basalt stone. The ground dips toward the center, creating a natural crater basin where battles take place.
+Floor:
+Cracked obsidian and ash cover the battlefield. In some spots, thin crusts of stone crack under pressure, releasing bursts of steam.
+Walls:
+Jagged volcanic cliffs rise around the crater, glowing faintly from inner magma. The rock face constantly drips with glowing cracks of molten light.
+Environmental Details
+Lava Rivers:
+Three glowing lava channels snake through the arena. They bubble and flow, with bridges of cooled rock allowing narrow crossings. Lava spits sparks randomly, forcing creatures to stay alert.
+Hot Rocks:
+Volcanic boulders scattered around act as natural cover, but they are superheated — creatures hiding too long behind them take minor burn damage.
+Central Platform:
+A solid chunk of basalt juts out in the middle of the crater like a volcanic altar. The safest high ground, but exposed from all directions.
+Air Quality:
+Sulfur fumes rise constantly. Visibility is reduced slightly by smoke plumes, and stamina drains faster for unadapted creatures.
+
+Mechanics / Battle Impact
+Fire/Earth Boosts:
+Fire creatures gain +15% attack power (heat fuels them).
+Earth/rock creatures gain extra defense from volcanic resonance.
+Water/Ice Weakness:
+Lose stamina 20% faster due to constant overheating.
+Ice abilities are half as effective (melt quickly).
+Lava Rivers:
+Falling into lava causes severe damage (direct HP loss + burn over time).
+Some agile or flying creatures can use the lava rivers to trap enemies by positioning.
+Hot Rocks:
+Provide cover but deal minor burn damage if touched for too long.
+Steam Vents:
+Randomly release bursts of steam.
+Can blind creatures temporarily or knock them back slightly.
+","
+Legends say the crater was once the site of a fallen fire god’s heart, which still fuels the molten rivers. Fire-aligned creatures often feel a spiritual bond when fighting here.
+"

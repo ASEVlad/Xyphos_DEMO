@@ -1,5 +1,10 @@
 .venv
 .env
 .idea
-data
+data/creature_appearances
+data/llm_api
+data/battle_records.csv
+data/creature_db.csv
+data/handled_updates.txt
+data/registered_users.txt
 test.ipynb
