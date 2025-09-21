@@ -5,7 +5,7 @@ from loguru import logger
 import telegram
 from dotenv import load_dotenv
 
-from data.messages import welcome_message, repeated_login
+from src.messages import welcome_message, repeated_login
 from src.message_logic import handle_operation
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))

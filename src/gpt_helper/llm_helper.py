@@ -7,7 +7,7 @@ from typing import List
 from loguru import logger
 from openai import OpenAI
 
-from data.prompts import generate_appearance_generating_prompt
+from src.prompts import generate_appearance_generating_prompt
 from src.utils import get_creature_appearance_path, get_image_in_b64_format
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))

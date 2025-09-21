@@ -3,8 +3,8 @@ import time
 from telegram import Bot
 import threading
 
-from data.messages import *
-from data.prompts import generate_creature_stats_prompt, generate_battle_content
+from src.messages import *
+from src.prompts import generate_creature_stats_prompt, generate_battle_content
 from src.gpt_helper.llm_helper import generate_creature_appearance, fetch_ai_response, \
     generate_simple_content
 from src.utils import get_creature_appearance_path, set_stats, set_creature_param, \
