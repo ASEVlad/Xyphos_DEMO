@@ -159,6 +159,8 @@ wrong_command_message = "We are sorry to mislead you... Please try again. Operat
 
 error_message = "Oh... no... Something happened from our side. Please try the last operation one more time."
 
+ai_error_message = "Oh... no... Something happened from AI side. Please try the last operation one more time."
+
 contact_message = ""
 
 executive_summary_message = ""
