@@ -186,10 +186,6 @@ def handle_pvp_action(bot, first_player_chat_id):
 
         save_battle_records_to_csv(parsed_fight_info, first_player_chat_id, random_opponent_chat_id)
         bot.send_message(chat_id=first_player_chat_id, text=generate_battle_message(parsed_fight_info))
-
-        time.sleep(20)
-
-        bot.send_message(chat_id=first_player_chat_id, text=generate_battle_message(parsed_fight_info))
         logger.info(f"Chat_id {first_player_chat_id}: PVP action complete")
     except Exception as error:
         logger.error(f"Chat_ID {first_player_chat_id}: {error}")
