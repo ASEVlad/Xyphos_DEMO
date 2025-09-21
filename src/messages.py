@@ -155,7 +155,9 @@ def generate_battle_message(parsed_fight_info):
 
 
 
-sorry_message = "We are sorry to mislead you... Please try again. Operation was not detected"
+wrong_command_message = "We are sorry to mislead you... Please try again. Operation was not detected"
+
+error_message = "Oh... no... Something happened from our side. Please try the last operation one more time."
 
 contact_message = ""
 
