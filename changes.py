@@ -8,15 +8,14 @@ def ensure_creature_columns():
     # Ensure file exists
     if not os.path.exists(CREATURE_DB_FILE):
         # Create an empty DataFrame with at least these columns
-        df = pd.DataFrame(columns=["chat_id", "name", "Level", "Experience", "Training_count"])
+        df = pd.DataFrame(columns=["chat_id", "Campaign_level"])
     else:
         df = pd.read_csv(CREATURE_DB_FILE)
 
         # Add missing columns with default value 0
-        for col in ["Level", "Experience", "Training_count"]:
+        for col in ["Campaign_level"]:
             if col not in df.columns:
                 df[col] = 0
-        df = df.rename(columns={"features": "Feature"})
 
     # Save back
     df.to_csv(CREATURE_DB_FILE, index=False)

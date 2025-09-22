@@ -12,6 +12,7 @@ CREATURE_DB_FILE = os.path.abspath(os.path.join(BASE_DIR, "..", "data", "creatur
 ARENA_DB_FILE = os.path.abspath(os.path.join(BASE_DIR, "..", "data", "arenas", "arena_db.csv"))
 BATTLE_RECORDS_FILE = os.path.abspath(os.path.join(BASE_DIR, "..", "data", "battle_records.csv"))
 USER_STATUS_DB = os.path.abspath(os.path.join(BASE_DIR, "..", "data", "user_status.csv"))
+CAMPAIGN_CREATURE_DB = os.path.abspath(os.path.join(BASE_DIR, "..", "data", "campaign_creature_db.csv"))
 
 
 def get_creature_appearance_path(chat_id: str) -> str:
@@ -161,6 +162,16 @@ def get_random_opponent_chat_id(player_chat_id: str) -> str:
 def get_random_arena():
     df = pd.read_csv(ARENA_DB_FILE)
     random_arena = df.sample().iloc[0]
+    random_arena_name = random_arena["name"]
+    random_arena_image_path = os.path.abspath(os.path.join(BASE_DIR, "..", "data", "arenas", "images", f"{random_arena_name}.png"))
+    random_arena_description = random_arena["description"]
+    random_arena_lore = random_arena["lore_message"]
+
+    return random_arena_name, random_arena_image_path, random_arena_description, random_arena_lore
+
+def get_campaign_arena():
+    df = pd.read_csv(ARENA_DB_FILE)
+    random_arena = df[df["name"] == "Forest Clearing"].iloc[0]
     random_arena_name = random_arena["name"]
     random_arena_image_path = os.path.abspath(os.path.join(BASE_DIR, "..", "data", "arenas", "images", f"{random_arena_name}.png"))
     random_arena_description = random_arena["description"]
@@ -367,3 +378,15 @@ def get_user_status(chat_id: str, param: str) -> str | None:
 def wait_till_proper_user_status(chat_id):
     while get_user_status(chat_id, "status") != "In Progress":
         time.sleep(1)
+
+
+def get_campaign_creature_param(chat_id: str, param: str) -> str | None:
+    if not os.path.exists(CAMPAIGN_CREATURE_DB):
+        return None
+
+    df = pd.read_csv(CAMPAIGN_CREATURE_DB)
+    match = df.loc[df["chat_id"].astype(str) == str(chat_id), param]
+
+    if not match.empty:
+        return match.iloc[0]
+    return None

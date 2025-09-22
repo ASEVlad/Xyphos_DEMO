@@ -95,8 +95,13 @@ Mood Split: Different heads may act slightly differently, causing small randomne
 def generate_battle_content(
         arena_path: str,
         arena_description: str,
-        first_player_chat_id: str,
-        second_player_chat_id: str
+        first_player_creature_name: str,
+        first_player_creature_description: str,
+        first_player_creature_image_path: str,
+        second_player_creature_name: str,
+        second_player_creature_description: str,
+        second_player_creature_image_path: str
+
 ):
     content = []
 
@@ -120,29 +125,23 @@ def generate_battle_content(
     })
 
     # Player 1
-    first_player_creature_name = get_creature_param(first_player_chat_id, "name")
-    first_player_description = get_creature_param(first_player_chat_id, "stat_description")
     content.append({
         "type": "text",
-        "text": f"First Creature (Player 1). Name: {first_player_creature_name}. Description:\n{first_player_description}\n"
+        "text": f"First Creature (Player 1). Name: {first_player_creature_name}. Description:\n{first_player_creature_description}\n"
     })
-    first_player_image_path = get_creature_appearance_path(first_player_chat_id)
     content.append({
         "type": "image_url",
-        "image_url": {"url": f"data:image/png;base64,{get_image_in_b64_format(first_player_image_path)}"}
+        "image_url": {"url": f"data:image/png;base64,{get_image_in_b64_format(first_player_creature_image_path)}"}
     })
 
     # Player 2
-    second_player_creature_name = get_creature_param(second_player_chat_id, "name")
-    opponent_player_creature_description = get_creature_param(second_player_chat_id, "stat_description")
     content.append({
         "type": "text",
-        "text": f"Second Creature (Player 2). Name: {second_player_creature_name}. Description: \n{opponent_player_creature_description}\n"
+        "text": f"Second Creature (Player 2). Name: {second_player_creature_name}. Description: \n{second_player_creature_description}\n"
     })
-    second_player_image_path = get_creature_appearance_path(second_player_chat_id)
     content.append({
         "type": "image_url",
-        "image_url": {"url": f"data:image/png;base64,{get_image_in_b64_format(second_player_image_path)}"}
+        "image_url": {"url": f"data:image/png;base64,{get_image_in_b64_format(second_player_creature_image_path)}"}
     })
 
     content.append({

@@ -9,3 +9,4 @@ data/handled_updates.txt
 data/registered_users.txt
 test.ipynb
 data/user_status.csv
+data/campaign_creature_db.csv

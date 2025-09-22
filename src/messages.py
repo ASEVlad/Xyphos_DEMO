@@ -120,8 +120,7 @@ def generate_arena_announcement_message(arena_name, arena_lore):
     )
     return message
 
-def generate_opponent_announcement_message_1(opponent_chat_id):
-    opponent_player_creature_name = get_creature_param(opponent_chat_id, "name")
+def generate_opponent_announcement_message_1(opponent_player_creature_name):
     message = (
         f"\nYour Opponent:"
         f"\n"
@@ -130,8 +129,7 @@ def generate_opponent_announcement_message_1(opponent_chat_id):
 
     return message
 
-def generate_opponent_announcement_message_2(opponent_chat_id):
-    opponent_player_creature_description = get_creature_param(opponent_chat_id, "stat_description")
+def generate_opponent_announcement_message_2(opponent_player_creature_description):
     message = (
         f"\nStats:"
         f"\n{opponent_player_creature_description}"
