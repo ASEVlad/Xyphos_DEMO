@@ -110,11 +110,17 @@ pvp_start_message = (
     "\nLets try to test you creature in a real fight!"
 )
 
-def generate_arena_announcement_message(arena_name, arena_lore):
-    message = (
-        "\nAn empty arena has been found for you!"
-        f"\n"
-        f"\n{arena_name.upper()}"
+def generate_arena_announcement_message(arena_name, arena_lore, campaign_mode=False):
+    if campaign_mode:
+        message = f"You have got into {arena_name.upper()}"
+    else:
+        message = (
+            "\nAn empty arena has been found for you!"
+            f"\n"
+            f"\n{arena_name.upper()}"
+        )
+
+    message += (
         "\n"
         f"\n{arena_lore}"
     )
