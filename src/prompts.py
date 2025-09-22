@@ -124,7 +124,6 @@ def generate_battle_content(
     # Player 1
     first_player_creature_name = get_creature_param(first_player_chat_id, "name")
     first_player_description = get_creature_param(first_player_chat_id, "stat_description")
-    print(first_player_creature_name, first_player_description)
     content.append({
         "type": "text",
         "text": f"First Creature (Player 1). Name: {first_player_creature_name}. Description:\n{first_player_description}\n"
@@ -138,7 +137,6 @@ def generate_battle_content(
     # Player 2
     second_player_creature_name = get_creature_param(second_player_chat_id, "name")
     opponent_player_creature_description = get_creature_param(second_player_chat_id, "stat_description")
-    print(second_player_creature_name, opponent_player_creature_description)
     content.append({
         "type": "text",
         "text": f"Second Creature (Player 2). Name: {second_player_creature_name}. Description: \n{opponent_player_creature_description}\n"

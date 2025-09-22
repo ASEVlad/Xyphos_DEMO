@@ -65,6 +65,7 @@ def handle_telegram_updates():
                         logger.info(f"User {chat_id} already registered.")
                 else:
                     handle_operation(bot, chat_id, message_text)
+                    time.sleep(0.5)
 
                 handled_updates.add(update_id)
                 save_handled_updates(handled_updates)
