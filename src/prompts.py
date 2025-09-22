@@ -19,7 +19,6 @@ Style direction:
 - The design should be with vibrant colors and detailed textures. 
 - Focus on simplicity and creature personality.
 
-
 Creature description: {creature_description}.
 
 Now generate the creature with transparent background.
