@@ -192,41 +192,53 @@ def generate_training_prompt(chat_id: str, interaction_text: str) -> str:
     creature_description = get_creature_param(chat_id, "user_description")
 
     prompt = f"""
-    Your task will be to change creature stats in accordance with the interaction that player made with its creature.
-    Additionally, come up with a new feature for the creature if this training will be performed 10 times.
+Your task will be to change creature stats in accordance with the interaction that player made with its creature.
+Additionally, come up with a new feature for the creature if this training will be performed 10 times.
 
-    Creature description:
-    {creature_description}
+Creature description:
+{creature_description}
 
-    Current creature stats are:
-    Experience (XP) {creature_xp}". Shows how much activities creature went through
-    Health Points (HP) {stats['Health Points']}. Enough to survive 2–3 basic hits. HP will scale more steeply than other stats (tank growth).,
-    Attack (ATK) {stats['Attack']}. Sets baseline for physical damage. Formula could be: Damage = ATK – Opponent DEF.,
-    Defense (DEF) {stats['Defense']}. Reduces incoming physical dmg: Final dmg = Raw dmg × (100 / (100 + DEF)).,
-    Agility (AGI) {stats['Agility']}. Affects dodge chance (e.g., Dodge% = AGI / (AGI + Opponent AGI)), and who attacks first.,
-    Magic Attack (MAG) {stats['Magic Attack']}. Works as a multiplier for magical/special skills: Skill Power = Base × (1 + MAG/100).,
-    Magic Defense (MDEF) {stats['Magic Defense']}. Reduces special dmg same way as DEF.,
-    Mood {stats['Mood']} (0–20 scale). Mood shifts dynamically (daily or per battle). Positive mood gives +5% buffs, negative mood –5%.,
-    Fatigue {stats['Fatigue']} (0–100 scale). Starts at 0. Each action adds fatigue; above 50, actions become weaker (−10–20% effectiveness).,
-    Attachment to Owner {stats['Attachment to Owner']} (0–20 scale). Starts low but grows with care/training. Provides bonus crit chance, recovery speed, or XP multiplier.
-    Obedience {stats['Obedience']} (0–20 scale). Starts low since the creature is young and rebellious. Increases through consistent commands, training, and care
+Current creature stats are:
+Experience (XP) {creature_xp}". Shows how much activities creature went through
+Health Points (HP) {stats['Health Points']}. Enough to survive 2–3 basic hits. HP will scale more steeply than other stats (tank growth).,
+Attack (ATK) {stats['Attack']}. Sets baseline for physical damage. Formula could be: Damage = ATK – Opponent DEF.,
+Defense (DEF) {stats['Defense']}. Reduces incoming physical dmg: Final dmg = Raw dmg × (100 / (100 + DEF)).,
+Agility (AGI) {stats['Agility']}. Affects dodge chance (e.g., Dodge% = AGI / (AGI + Opponent AGI)), and who attacks first.,
+Magic Attack (MAG) {stats['Magic Attack']}. Works as a multiplier for magical/special skills: Skill Power = Base × (1 + MAG/100).,
+Magic Defense (MDEF) {stats['Magic Defense']}. Reduces special dmg same way as DEF.,
+Mood {stats['Mood']} (0–20 scale). Mood shifts dynamically (daily or per battle). Positive mood gives +5% buffs, negative mood –5%.,
+Fatigue {stats['Fatigue']} (0–100 scale). Starts at 0. Each action adds fatigue; above 50, actions become weaker (−10–20% effectiveness).,
+Attachment to Owner {stats['Attachment to Owner']} (0–20 scale). Starts low but grows with care/training. Provides bonus crit chance, recovery speed, or XP multiplier.
+Obedience {stats['Obedience']} (0–20 scale). Starts low since the creature is young and rebellious. Increases through consistent commands, training, and care
 
-    Features of the creature:
-    {creature_features}
+Features of the creature:
+{creature_features}
 
-    Interaction made by user:
-    {interaction_text}
+Interaction made by user:
+{interaction_text}
 
-    Now provide changes of creature stats in accordance with the interaction that player made with its creature as it was done during 30 minutes.
-    Additionally, come up with a new feature for the creature if this training will be performed 10 times.
+Now provide changes of creature stats in accordance with the interaction that player made with its creature as it was done during 30 minutes.
+Additionally, come up with a new feature for the creature if this training will be performed 10 times.
 
-    Output format MUST be exactly two sections separated by paragraph:
-    Stat changes:
-    <stat_1>: <new stat value>
-    ...
-    <stat_n>: <new stat value>
-    New feature:
-    <one short sentence of new feature>
+Output format MUST be exactly two sections separated by paragraph:
+Stat changes:
+<stat_1>: <new stat value>
+...
+<stat_n>: <new stat value>
+New feature:
+<one short sentence of new feature>
+
+Example output:
+Stat changes:
+Experience (XP): 5
+Attack (ATK): 25.0
+Defense (DEF): 20.0
+Mood: 14.0
+Fatigue: 30.0
+Attachment to Owner: 8.0
+
+New feature:
+Dodge Mirage: Create an illusionary double to confuse enemies for a brief period.
     """
 
     return prompt
