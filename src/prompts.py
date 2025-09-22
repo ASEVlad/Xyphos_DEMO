@@ -1,9 +1,7 @@
 from src.utils import get_creature_param, get_image_in_b64_format, get_creature_appearance_path, get_stats
 
 
-def generate_appearance_generating_prompt(chat_id: str) -> str:
-    creature_description = get_creature_param(chat_id, "user_description")
-
+def generate_appearance_generating_prompt(creature_description: str) -> str:
     prompt = f"""
 Your task is to generate the look of a creature in Pokémon/GigaBash style.
 

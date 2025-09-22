@@ -72,7 +72,7 @@ def run_creature_generation(bot: Bot, chat_id: str, message_text: str, photo_rea
             bot.send_message(chat_id=chat_id, text=proper_mint_message_1)
 
         set_creature_param(chat_id, "user_description", creature_description)
-        abs_character_appearance_path = generate_creature_appearance(chat_id)
+        abs_character_appearance_path = generate_creature_appearance(chat_id, creature_description)
 
         # Wait until handle_operation signals "after message 3"
         photo_ready_event.wait()

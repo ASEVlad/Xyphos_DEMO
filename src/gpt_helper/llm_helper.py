@@ -79,11 +79,11 @@ def fetch_ai_response(content: List):
         raise
 
 
-def generate_creature_appearance(chat_id: str) -> str:
+def generate_creature_appearance(chat_id: str, creature_description: str) -> str:
     try:
         response = openai_client.images.generate(
             model="gpt-image-1",
-            prompt=generate_appearance_generating_prompt(chat_id),
+            prompt=generate_appearance_generating_prompt(creature_description),
             n=1,  # Number of images to generate
             size="1024x1024"
         )
