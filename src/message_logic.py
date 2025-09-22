@@ -155,9 +155,15 @@ def handle_training_action(bot, chat_id, message_text):
 
         training_prompt = generate_training_prompt(chat_id, training_text)
         content = generate_simple_content(training_prompt, get_creature_appearance_path(chat_id))
-        new_stats = fetch_ai_response(content)
+        training_result_text = fetch_ai_response(content)
+        new_stats, feature = parse_stats_and_feature(training_result_text)
+        if not new_stats:
+            training_result_text = fetch_ai_response(content)
+            new_stats, feature = parse_stats_and_feature(training_result_text)
+            if new_stats:
+                bot.send_message(chat_id=chat_id, text=ai_error_message)
+
         old_stats = get_stats(chat_id)
-        new_stats, feature = parse_stats_and_feature(new_stats)
         update_stats_and_feature(chat_id, new_stats, feature)
 
         stats_difference_message = generate_stats_difference_message(old_stats, new_stats)
