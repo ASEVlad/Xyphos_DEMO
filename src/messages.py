@@ -1,3 +1,7 @@
+import os
+
+import pandas as pd
+
 from src.utils import get_creature_param
 
 welcome_message = (
@@ -231,3 +235,19 @@ contacts_message = ""
 executive_summary_message = ""
 
 def generate_check_message():
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    CREATURE_DB_FILE = os.path.abspath(os.path.join(BASE_DIR, "..", "data", "creature_db.csv"))
+    BATTLE_RECORDS_FILE = os.path.abspath(os.path.join(BASE_DIR, "..", "data", "battle_records.csv"))
+    USER_STATUS_DB = os.path.abspath(os.path.join(BASE_DIR, "..", "data", "user_status.csv"))
+
+    creature_records_df = pd.read_csv(CREATURE_DB_FILE)
+    battle_records_df = pd.read_csv(BATTLE_RECORDS_FILE)
+    user_status_df = pd.read_csv(USER_STATUS_DB)
+    user_in_progress_df = user_status_df[user_status_df['status'] == 'In Progress']
+
+    messages = (
+        f"There are {len(creature_records_df)} creatures."
+        f"\nThere are {len(battle_records_df)} battles."
+        f"\nThere are {len(user_in_progress_df)} users with status 'In Progress'."
+    )
+    return messages

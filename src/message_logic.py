@@ -312,8 +312,8 @@ def handle_check_action(bot, chat_id):
         set_user_status(chat_id, "status", "In Progress")
         wait_till_proper_user_status(chat_id)
         logger.info(f"Chat_id {chat_id}: Starting PVP action")
-        message = generate_check_message()
-        bot.send_message(chat_id=chat_id, text=info_message)
+        check_message = generate_check_message()
+        bot.send_message(chat_id=chat_id, text=check_message)
         logger.info(f"Chat_id {chat_id}: Info action complete")
         set_user_status(chat_id, "status", "Ready")
     except Exception as error:
