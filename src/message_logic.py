@@ -333,7 +333,7 @@ def handle_check_action(bot, chat_id):
 
 
 # NAME
-def handle_campaign_action(bot: Bot, chat_id: str, message_text: str):
+def handle_campaign_action(bot: Bot, chat_id: str):
     try:
         set_user_status(chat_id, "status", "In Progress")
         wait_till_proper_user_status(chat_id)
