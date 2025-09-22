@@ -1,6 +1,7 @@
 import base64
 import os
 import re
+import time
 from datetime import datetime
 
 import pandas as pd
@@ -10,6 +11,7 @@ CREATURE_APPEARANCE_FOLDER = os.path.abspath(os.path.join(BASE_DIR, "..", "data"
 CREATURE_DB_FILE = os.path.abspath(os.path.join(BASE_DIR, "..", "data", "creature_db.csv"))
 ARENA_DB_FILE = os.path.abspath(os.path.join(BASE_DIR, "..", "data", "arenas", "arena_db.csv"))
 BATTLE_RECORDS_FILE = os.path.abspath(os.path.join(BASE_DIR, "..", "data", "battle_records.csv"))
+USER_STATUS_DB = os.path.abspath(os.path.join(BASE_DIR, "..", "data", "user_status.csv"))
 
 
 def get_creature_appearance_path(chat_id: str) -> str:
@@ -318,3 +320,50 @@ def update_stats_and_feature(chat_id: str, stats: dict, feature: str) -> None:
 
     # Save to database
     df.to_csv(CREATURE_DB_FILE, index=False)
+
+
+def set_user_status(chat_id: str, param: str, value):
+    # Ensure file exists
+    if not os.path.exists(USER_STATUS_DB):
+        df = pd.DataFrame(columns=["chat_id", "status", "updated_at"])
+        df.to_csv(USER_STATUS_DB, index=False)
+
+    # Load
+    df = pd.read_csv(USER_STATUS_DB)
+
+    # If param column doesn't exist → create it with NaN
+    if param not in df.columns:
+        df[param] = pd.NA
+
+    # If chat_id exists → update, else append
+    if chat_id in df["chat_id"].astype(str).values:
+        df.loc[df["chat_id"].astype(str) == chat_id, param] = value
+        is_new = False
+    else:
+        # Create row with all columns NaN, then fill param
+        new_row = {col: pd.NA for col in df.columns}
+        new_row["chat_id"] = chat_id
+        new_row[param] = value
+        df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
+        is_new = True
+
+    # Save back
+    df.to_csv(USER_STATUS_DB, index=False)
+    return is_new
+
+
+def get_user_status(chat_id: str, param: str) -> str | None:
+    if not os.path.exists(USER_STATUS_DB):
+        return None
+
+    df = pd.read_csv(USER_STATUS_DB)
+    match = df.loc[df["chat_id"].astype(str) == str(chat_id), param]
+
+    if not match.empty:
+        return match.iloc[0]
+    return None
+
+
+def wait_till_proper_user_status(chat_id):
+    while get_user_status(chat_id, "status") != "In Progress":
+        time.sleep(1)

@@ -8,3 +8,4 @@ data/creature_db.csv
 data/handled_updates.txt
 data/registered_users.txt
 test.ipynb
+data/user_status.csv
