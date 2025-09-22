@@ -63,7 +63,7 @@ def get_creature_param(chat_id: str, param: str) -> str | None:
 # Canonical keys we care about
 CANON_KEYS = [
     'Health Points', 'Attack', 'Defense', 'Agility', 'Magic Attack', 'Magic Defense',
-    'Mood', 'Fatigue', 'Attachment to Owner', 'Obedience'
+    'Mood', 'Fatigue', 'Attachment to Owner', 'Obedience', 'Experience', 'Level'
 ]
 
 STAT_REGEX = r'(?P<name>[\w\s]+?)\s*(?:\((?P<abbr>\w+)\))?\s*:\s*(?P<value>\d+)\s*(?:\((?P<range>[^)]+)\))?'
@@ -233,3 +233,88 @@ def save_battle_records_to_csv(fight_info, data, first_chat_id, second_chat_id):
     df.to_csv(BATTLE_RECORDS_FILE, index=False, encoding='utf-8')
 
     return next_id
+
+
+NEW_STAT_REGEX = r'(?P<name>[\w\s]+?)\s*(?:\((?P<abbr>\w+)\))?\s*:\s*(?P<value>[0-9.]+)'
+FEATURE_REGEX = r'New feature:\s*(?P<feature>.+)'
+
+
+def parse_stats_and_feature(input_text: str) -> tuple[dict, str]:
+    """
+    Parse stats and feature from input text.
+    Returns a tuple of (stats dictionary, feature string).
+    """
+    stats = {}
+    feature = None
+
+    # Split into sections
+    sections = input_text.strip().split('\n\n')
+
+    for section in sections:
+        section = section.strip()
+        if section.startswith('Stat changes:'):
+            # Process stat lines
+            stat_lines = section.split('\n')[1:]  # Skip "Stat changes:" line
+            for line in stat_lines:
+                line = line.strip()
+                if not line:
+                    continue
+                match = re.match(NEW_STAT_REGEX, line)
+                if match:
+                    name = match.group('name').strip()
+                    try:
+                        value = float(match.group('value'))
+                        # Convert to int if it's a whole number
+                        if value.is_integer():
+                            value = int(value)
+                        stats[name] = value
+                    except ValueError:
+                        continue  # Skip invalid numeric values
+        elif section.startswith('New feature:'):
+            # Process feature line
+            match = re.match(FEATURE_REGEX, section)
+            if match:
+                feature = match.group('feature').strip()
+
+    return stats, feature
+
+
+def update_stats_and_feature(chat_id: str, stats: dict, feature: str) -> None:
+    """
+    Parse stats and feature from input text and upsert into the database.
+    Missing stats remain as-is (no overwrite to NaN).
+    """
+    # Read or initialize the database
+    try:
+        df = pd.read_csv(CREATURE_DB_FILE)
+    except FileNotFoundError:
+        cols = ["chat_id"] + CANON_KEYS + ["Feature", "updated_at"]
+        df = pd.DataFrame(columns=cols)
+
+    # Ensure all necessary columns exist
+    for c in CANON_KEYS + ["Feature", "updated_at"]:
+        if c not in df.columns:
+            df[c] = pd.NA
+
+    # Update or insert the row
+    current_time = datetime.now().isoformat()
+    if chat_id in df["chat_id"].astype(str).values:
+        idx = df.index[df["chat_id"].astype(str) == str(chat_id)][0]
+        # Update existing stats
+        for k, v in stats.items():
+            if k in CANON_KEYS:
+                df.at[idx, k] = v
+        # Update feature if present
+        if feature:
+            df.at[idx, "Feature"] += "\n" + feature
+        df.at[idx, "updated_at"] = current_time
+    else:
+        # Create new row
+        row = {"chat_id": chat_id, "updated_at": current_time}
+        for k in CANON_KEYS:
+            row[k] = stats.get(k, pd.NA)
+        row["Feature"] = feature if feature else pd.NA
+        df = pd.concat([df, pd.DataFrame([row])], ignore_index=True)
+
+    # Save to database
+    df.to_csv(CREATURE_DB_FILE, index=False)

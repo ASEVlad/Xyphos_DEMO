@@ -154,7 +154,22 @@ def generate_battle_message(parsed_fight_info):
 
     return message
 
+try_training_message = (
+    "Did you enjoy the PvP battle? Exciting, wasn’t it?"
+    "\nNow, how about trying a training session?"
+    "\nJust type /training followed by your preferred activity for the next 30 minutes."
+    "\nRemember: the more thoughtful, polite, and enjoyable your training description is, the greater the benefits your creature will gain."
+    "\nExample:"
+    "\n/training Let's practice dodging both melee and ranged attacks for 30 minutes in a fun, game-like style."
+)
 
+empty_training_message = (
+    "Ohh... no... You have not provided the training text."
+    "\nBut don’t worry! WE will use an Example for you"
+    "\nBut if you want to train the creature once more - type /training followed by your preferred activity for the next 30 minutes."
+    "\nExample:"
+    "\n/training Let's practice dodging both melee and ranged attacks for 30 minutes in a fun, game-like style."
+)
 
 wrong_command_message = "We are sorry to mislead you... Please try again. Operation was not detected"
 
@@ -165,3 +180,27 @@ ai_error_message = "Oh... no... Something happened from AI side. Please try the 
 contact_message = ""
 
 executive_summary_message = ""
+
+
+def generate_stats_difference_message(old_stats: dict, new_stats: dict) -> str:
+    messages = ["Cool! That is working!\n\n📊 Stat changes:"]
+
+    for stat, old_val in old_stats.items():
+        if stat in new_stats:
+            new_val = new_stats[stat]
+            if new_val != old_val:
+                diff = new_val - old_val
+                sign = "↑" if diff > 0 else "↓"
+                messages.append(
+                    f"- {stat}: {old_val} → {new_val} ({sign}{abs(diff)})"
+                )
+
+    # Check if new stats introduced something fresh
+    for stat, new_val in new_stats.items():
+        if stat not in old_stats:
+            messages.append(f"- {stat}: NEW → {new_val}")
+
+    if len(messages) == 1:
+        return "✅ No stat changes."
+
+    return "\n".join(messages)

@@ -4,12 +4,12 @@ from loguru import logger
 from telegram import Bot
 
 from src.messages import *
-from src.prompts import generate_creature_stats_prompt, generate_battle_content
+from src.prompts import generate_creature_stats_prompt, generate_battle_content, generate_training_prompt
 from src.gpt_helper.llm_helper import generate_creature_appearance, fetch_ai_response, \
     generate_simple_content
 from src.utils import get_creature_appearance_path, set_stats, set_creature_param, \
     get_random_opponent_chat_id, get_random_arena, parse_stats, extract_creature_features, parse_battle_text, \
-    save_battle_records_to_csv
+    save_battle_records_to_csv, parse_stats_and_feature, update_stats_and_feature, get_stats
 
 
 def handle_operation(bot: Bot, chat_id: str, message_text: str):
@@ -115,7 +115,7 @@ def handle_stats_action(bot: Bot, chat_id: str):
         set_stats(chat_id, stats_parsed)
 
         creature_features = extract_creature_features(creature_stats_response)
-        set_creature_param(chat_id, "features", creature_features)
+        set_creature_param(chat_id, "Feature", creature_features)
 
         finish_creature_mint_message = generate_finish_creature_mint_message_1(chat_id)
         bot.send_message(chat_id=chat_id, text=finish_creature_mint_message)
@@ -144,7 +144,29 @@ def handle_stats_action(bot: Bot, chat_id: str):
 
 
 def handle_training_action(bot, chat_id, message_text):
-    pass
+    try:
+        logger.info(f"Chat_id {chat_id}: Starting training action")
+        if message_text.strip() == "/training":
+            training_text = "Let's practice dodging both melee and ranged attacks for 30 minutes in a fun, game-like style."
+            bot.send_message(chat_id=chat_id, text=empty_training_message)
+        else:
+            training_text = message_text[8:].strip()
+            bot.send_message(chat_id=chat_id, text=proper_name_message)
+
+        training_prompt = generate_training_prompt(chat_id, training_text)
+        content = generate_simple_content(training_prompt, get_creature_appearance_path(chat_id))
+        new_stats = fetch_ai_response(content)
+        old_stats = get_stats(chat_id)
+        new_stats, feature = parse_stats_and_feature(new_stats)
+        update_stats_and_feature(chat_id, new_stats, feature)
+
+        stats_difference_message = generate_stats_difference_message(old_stats, new_stats)
+        bot.send_message(chat_id=chat_id, text=stats_difference_message)
+
+        logger.info(f"Chat_id {chat_id}: Training action complete")
+    except Exception as error:
+        logger.error(f"Chat_ID {chat_id}: {error}")
+        bot.send_message(chat_id=chat_id, text=error_message)
 
 
 # PVP
@@ -190,6 +212,10 @@ def handle_pvp_action(bot, first_player_chat_id):
             logger.warning(f"Chat_id {first_player_chat_id}: Could not parse properly fight info")
         else:
             bot.send_message(chat_id=first_player_chat_id, text=fight_info)
+
+        time.sleep(30)
+
+        bot.send_message(chat_id=first_player_chat_id, text=try_training_message)
 
         logger.info(f"Chat_id {first_player_chat_id}: PVP action complete")
     except Exception as error:
