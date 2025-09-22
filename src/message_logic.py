@@ -28,6 +28,10 @@ def handle_operation(bot: Bot, chat_id: str, message_text: str):
         handle_contacts_action(bot, chat_id)
     elif message_text.lower().startswith("/executive_summary"):
         handle_executive_summary_action(bot, chat_id)
+    elif message_text.lower().startswith("/info"):
+        handle_info_action(bot, chat_id)
+    elif message_text.lower().startswith("/check"):
+        handle_check_action(bot, chat_id)
     else:
         bot.send_message(chat_id=chat_id, text=wrong_command_message)
     logger.info(f"Chat_id {chat_id}: Operation was successfully processed")
@@ -245,9 +249,43 @@ def handle_pvp_action(bot, first_player_chat_id):
 
 # CONTACTS
 def handle_contacts_action(bot: Bot, chat_id: str):
-    bot.send_message(chat_id=chat_id, text=contact_message)
+    try:
+        logger.info(f"Chat_id {chat_id}: Starting Contacts action")
+        bot.send_message(chat_id=chat_id, text=contacts_message)
+        logger.info(f"Chat_id {chat_id}: Contacts action complete")
+    except Exception as error:
+        logger.error(f"Chat_ID {chat_id}: {error}")
+        bot.send_message(chat_id=chat_id, text=error_message)
 
 
 # EXECUTIVE SUMMARY
 def handle_executive_summary_action(bot, chat_id):
-    bot.send_message(chat_id=chat_id, text=executive_summary_message)
+    try:
+        logger.info(f"Chat_id {chat_id}: Starting Executive Summary action")
+        bot.send_message(chat_id=chat_id, text=executive_summary_message)
+        logger.info(f"Chat_id {chat_id}: Executive Summary action complete")
+    except Exception as error:
+        logger.error(f"Chat_ID {chat_id}: {error}")
+        bot.send_message(chat_id=chat_id, text=error_message)
+
+# INFO
+def handle_info_action(bot, chat_id):
+    try:
+        logger.info(f"Chat_id {chat_id}: Starting PVP action")
+        bot.send_message(chat_id=chat_id, text=info_message)
+        logger.info(f"Chat_id {chat_id}: Info action complete")
+    except Exception as error:
+        logger.error(f"Chat_ID {chat_id}: {error}")
+        bot.send_message(chat_id=chat_id, text=error_message)
+
+# CHECK
+def handle_check_action(bot, chat_id):
+    try:
+        logger.info(f"Chat_id {chat_id}: Starting PVP action")
+        message = generate_check_message()
+        bot.send_message(chat_id=chat_id, text=info_message)
+        logger.info(f"Chat_id {chat_id}: Info action complete")
+    except Exception as error:
+        logger.error(f"Chat_ID {chat_id}: {error}")
+        bot.send_message(chat_id=chat_id, text=error_message)
+

@@ -173,13 +173,9 @@ empty_training_message = (
 
 wrong_command_message = "We are sorry to mislead you... Please try again. Operation was not detected"
 
-error_message = "Oh... no... Something happened from our side. Please try the last operation one more time."
+error_message = "Oh... no... Something happened from our side. Please try the last operation one more time. Or if you are totally lost type /info"
 
 ai_error_message = "Oh... no... Something happened from AI side. Please try the last operation one more time."
-
-contact_message = ""
-
-executive_summary_message = ""
 
 
 def generate_stats_difference_message(old_stats: dict, new_stats: dict) -> str:
@@ -227,3 +223,11 @@ finish_training_message = (
     "\n"
     "\nNow. It is your turn to choose destiny for your creature"
 )
+
+info_message = ""
+
+contacts_message = ""
+
+executive_summary_message = ""
+
+def generate_check_message():
