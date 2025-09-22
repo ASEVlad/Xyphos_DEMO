@@ -160,7 +160,7 @@ def handle_training_action(bot, chat_id, message_text):
         if not new_stats:
             training_result_text = fetch_ai_response(content)
             new_stats, feature = parse_stats_and_feature(training_result_text)
-            if new_stats:
+            if not new_stats:
                 bot.send_message(chat_id=chat_id, text=ai_error_message)
 
         old_stats = get_stats(chat_id)
