@@ -169,6 +169,20 @@ def handle_training_action(bot, chat_id, message_text):
         stats_difference_message = generate_stats_difference_message(old_stats, new_stats)
         bot.send_message(chat_id=chat_id, text=stats_difference_message)
 
+        time.sleep(3)
+
+        training_count = get_creature_param(chat_id, "Training_count")
+        training_count += 1
+        set_creature_param(chat_id, "Training_count", training_count)
+
+        new_feature_message = generate_new_features_message(feature)
+        bot.send_message(chat_id=chat_id, text=new_feature_message)
+
+        time.sleep(5)
+
+        if training_count == 1:
+            bot.send_message(chat_id=chat_id, text=finish_training_message)
+
         logger.info(f"Chat_id {chat_id}: Training action complete")
     except Exception as error:
         logger.error(f"Chat_ID {chat_id}: {error}")

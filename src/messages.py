@@ -183,7 +183,7 @@ executive_summary_message = ""
 
 
 def generate_stats_difference_message(old_stats: dict, new_stats: dict) -> str:
-    messages = ["Cool! That is working!\n\n📊 Stat changes:"]
+    messages = ["Cool! Your creature is upgrading!\n\n📊 Stats have been changed:"]
 
     for stat, old_val in old_stats.items():
         if stat in new_stats:
@@ -204,3 +204,26 @@ def generate_stats_difference_message(old_stats: dict, new_stats: dict) -> str:
         return "✅ No stat changes."
 
     return "\n".join(messages)
+
+def generate_new_features_message(feature: str) -> str:
+    message = (
+        "We took the liberty of imagining you carried out similar training five more times..."
+        "\nAnd that’s how you unlocked a BRAND NEW FEATURE!"
+        "\nKeep in mind, it’s not as powerful as the skills you’ll gain at Level 5,"
+        "\nbut it still adds unique flavor to your creature."
+        f"\nYour new feature is: "
+        f"\n{feature}"
+    )
+    return message
+
+
+finish_training_message = (
+    "That was impressive journey."
+    "\nBut that's not the end!"
+    "\nThere are immerse other options. Few of them are:"
+    "\n1. Campaign Mode where you can find few different NPC creatures to fight with. For trying your creature in new mode just press /campaign"
+    "\n2. Get contacts of the founder. For this simply press /contacts"
+    "\n3. Get executive summary. And this is as simple as the previous ones. Just type /executive_summary"
+    "\n"
+    "\nNow. It is your turn to choose destiny for your creature"
+)
