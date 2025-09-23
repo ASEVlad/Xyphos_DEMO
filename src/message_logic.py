@@ -362,45 +362,48 @@ def handle_campaign_action(bot: Bot, chat_id: str):
         opponent_chat_id = f"Creature_{campaign_level + 1}"
         set_creature_param(chat_id, "Campaign_level", campaign_level+1)
 
-        random_opponent_creature_appearance_path = get_creature_appearance_path(opponent_chat_id)
-        opponent_player_creature_name = get_campaign_creature_param(opponent_chat_id, "name")
-        with open(random_opponent_creature_appearance_path, "rb") as photo:
-            bot.send_photo(
-                chat_id=chat_id,
-                photo=photo,
-                caption=generate_opponent_announcement_message_1(opponent_player_creature_name)
+        if campaign_level <= 4:
+            random_opponent_creature_appearance_path = get_creature_appearance_path(opponent_chat_id)
+            opponent_player_creature_name = get_campaign_creature_param(opponent_chat_id, "name")
+            with open(random_opponent_creature_appearance_path, "rb") as photo:
+                bot.send_photo(
+                    chat_id=chat_id,
+                    photo=photo,
+                    caption=generate_opponent_announcement_message_1(opponent_player_creature_name)
+                )
+                time.sleep(3)
+            opponent_player_creature_description = get_campaign_creature_param(opponent_chat_id, "stat_description")
+            bot.send_message(chat_id=chat_id, text=generate_opponent_announcement_message_2(opponent_player_creature_description))
+
+            first_player_creature_name = get_creature_param(chat_id, "name")
+            first_player_creature_description = get_creature_param(chat_id, "stat_description")
+            first_player_creature_image_path = get_creature_appearance_path(chat_id)
+            content = generate_battle_content(
+                arena_image_path,
+                arena_description,
+                first_player_creature_name,
+                first_player_creature_description,
+                first_player_creature_image_path,
+                opponent_player_creature_name,
+                opponent_player_creature_description,
+                random_opponent_creature_appearance_path
             )
-            time.sleep(3)
-        opponent_player_creature_description = get_campaign_creature_param(opponent_chat_id, "stat_description")
-        bot.send_message(chat_id=chat_id, text=generate_opponent_announcement_message_2(opponent_player_creature_description))
 
-        first_player_creature_name = get_creature_param(chat_id, "name")
-        first_player_creature_description = get_creature_param(chat_id, "stat_description")
-        first_player_creature_image_path = get_creature_appearance_path(chat_id)
-        content = generate_battle_content(
-            arena_image_path,
-            arena_description,
-            first_player_creature_name,
-            first_player_creature_description,
-            first_player_creature_image_path,
-            opponent_player_creature_name,
-            opponent_player_creature_description,
-            random_opponent_creature_appearance_path
-        )
+            fight_info = fetch_ai_response(content)
+            parsed_fight_info = parse_battle_text(fight_info)
 
-        fight_info = fetch_ai_response(content)
-        parsed_fight_info = parse_battle_text(fight_info)
+            save_battle_records_to_csv(fight_info, parsed_fight_info, chat_id, opponent_chat_id)
+            if len(parsed_fight_info["Story"]) != 0 and len(parsed_fight_info["Mechanics"]) != 0:
+                bot.send_message(chat_id=chat_id, text=generate_battle_message(parsed_fight_info))
+                logger.warning(f"Chat_id {chat_id}: Could not parse properly fight info")
+            else:
+                bot.send_message(chat_id=chat_id, text=fight_info)
 
-        save_battle_records_to_csv(fight_info, parsed_fight_info, chat_id, opponent_chat_id)
-        if len(parsed_fight_info["Story"]) != 0 and len(parsed_fight_info["Mechanics"]) != 0:
-            bot.send_message(chat_id=chat_id, text=generate_battle_message(parsed_fight_info))
-            logger.warning(f"Chat_id {chat_id}: Could not parse properly fight info")
+            time.sleep(10)
+
+            bot.send_message(chat_id=chat_id, text=finish_campaign_message)
         else:
-            bot.send_message(chat_id=chat_id, text=fight_info)
-
-        time.sleep(10)
-
-        bot.send_message(chat_id=chat_id, text=finish_campaign_message)
+            bot.send_message(chat_id=chat_id, text=finish_campaign_message)
 
         logger.info(f"Chat_id {chat_id}: Campaign action complete")
         set_user_status(chat_id, "status", "Ready")
