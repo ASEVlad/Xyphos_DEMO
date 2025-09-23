@@ -5,7 +5,10 @@ from src.telegram_handler import handle_telegram_updates
 def main():
     logger.add("logfile.log", rotation="2 MB", level="INFO")
     while True:
-        handle_telegram_updates()
+        try:
+            handle_telegram_updates()
+        except Exception as e:
+            logger.error(e)
         time.sleep(5)
 
 
