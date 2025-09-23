@@ -138,7 +138,7 @@ def handle_stats_action(bot: Bot, chat_id: str):
                         bot.send_message(chat_id=chat_id, text=ai_error_message)
                         logger.warning(f"Chat_id {chat_id}: Stats were not generated")
 
-        if len(creature_stats_response) <= 200:
+        if len(creature_stats_response) >= 200:
             set_creature_param(chat_id, "stat_description", creature_stats_response)
 
             stats_parsed = parse_stats(creature_stats_response)
