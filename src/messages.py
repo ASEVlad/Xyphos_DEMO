@@ -5,12 +5,13 @@ import pandas as pd
 from src.utils import get_creature_param
 
 welcome_message = (
-    "Welcome to Xyphos! Enter a world where creatures evolve, battles and carve their legend."
-    "\nNow you have few options to proceed. But at first - generate your creature."
-    "\nFor this please type /mint and describe the appearance of your creature."
-    "\nExample:"
-    "\n/mint Fairy from the hell with head of medusa from Greek mythology"
+    "Welcome to Xyphos! Step into a world where creatures evolve, battle, and forge their own legends."
+    "\nFrom here, you have a few paths to choose from."
+    "\nYou can explore the wide range of actions available—including checking our contacts and executive summary."
+    "\nBut we recommend starting by creating your very first creature."
+    "\nSimply type /mint and describe how your creature should look."
 )
+
 repeated_login = "You are already registered. Thank you for testing us."
 
 empty_mint_message = (
