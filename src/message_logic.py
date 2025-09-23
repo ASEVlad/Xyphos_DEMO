@@ -53,6 +53,7 @@ def handle_mint_action(bot: Bot, chat_id: str, message_text: str):
 
         set_creature_param(chat_id, "Experience", 0)
         set_creature_param(chat_id, "Campaign_level", 0)
+        set_creature_param(chat_id, "Training_count", 0)
 
         time.sleep(15)
         bot.send_message(chat_id=chat_id, text=proper_mint_message_2)
@@ -178,7 +179,6 @@ def handle_training_action(bot, chat_id, message_text):
             bot.send_message(chat_id=chat_id, text=empty_training_message)
         else:
             training_text = message_text[8:].strip()
-            bot.send_message(chat_id=chat_id, text=proper_name_message)
 
         training_prompt = generate_training_prompt(chat_id, training_text)
         content = generate_simple_content(training_prompt, get_creature_appearance_path(chat_id))
@@ -207,8 +207,7 @@ def handle_training_action(bot, chat_id, message_text):
 
         time.sleep(5)
 
-        if training_count == 1:
-            bot.send_message(chat_id=chat_id, text=finish_training_message)
+        bot.send_message(chat_id=chat_id, text=finish_training_message)
 
         logger.info(f"Chat_id {chat_id}: Training action complete")
         set_user_status(chat_id, "status", "Ready")
@@ -350,7 +349,7 @@ def handle_campaign_action(bot: Bot, chat_id: str):
             bot.send_photo(
                 chat_id=chat_id,
                 photo=photo,
-                caption=generate_arena_announcement_message(arena_name, arena_lore)
+                caption=generate_arena_announcement_message(arena_name, arena_lore, campaign_mode=True)
             )
         time.sleep(10)
 
@@ -414,7 +413,7 @@ def handle_reset_user_action(bot: Bot, chat_id: str, message_text: str):
         else:
             user_chat_id = message_text[10:].strip()
             reset_user(user_chat_id)
-            bot.send_message(chat_id=chat_id, text=proper_name_message)
+            bot.send_message(chat_id=chat_id, text="User has been reseted.")
 
         logger.info(f"Chat_id {chat_id}: Reset action complete")
     except Exception as error:
