@@ -349,20 +349,21 @@ def handle_campaign_action(bot: Bot, chat_id: str):
         set_user_status(chat_id, "status", "In Progress")
         logger.info(f"Chat_id {chat_id}: Starting campaign action")
 
-        arena_name, arena_image_path, arena_description, arena_lore = get_campaign_arena()
-        with open(arena_image_path, "rb") as photo:
-            bot.send_photo(
-                chat_id=chat_id,
-                photo=photo,
-                caption=generate_arena_announcement_message(arena_name, arena_lore, campaign_mode=True)
-            )
-        time.sleep(10)
-
         campaign_level = int(get_creature_param(chat_id, "Campaign_level"))
         opponent_chat_id = f"Creature_{campaign_level + 1}"
         set_creature_param(chat_id, "Campaign_level", campaign_level+1)
 
         if campaign_level <= 3:
+            arena_name, arena_image_path, arena_description, arena_lore = get_campaign_arena()
+            with open(arena_image_path, "rb") as photo:
+                bot.send_photo(
+                    chat_id=chat_id,
+                    photo=photo,
+                    caption=generate_arena_announcement_message(arena_name, arena_lore, campaign_mode=True)
+                )
+
+            time.sleep(10)
+
             random_opponent_creature_appearance_path = get_creature_appearance_path(opponent_chat_id)
             opponent_player_creature_name = get_campaign_creature_param(opponent_chat_id, "name")
             with open(random_opponent_creature_appearance_path, "rb") as photo:
