@@ -271,7 +271,7 @@ def handle_pvp_action(bot, first_player_chat_id):
         else:
             bot.send_message(chat_id=first_player_chat_id, text=fight_info)
 
-        time.sleep(30)
+        time.sleep(20)
 
         bot.send_message(chat_id=first_player_chat_id, text=try_training_message)
 
@@ -355,7 +355,7 @@ def handle_campaign_action(bot: Bot, chat_id: str):
 
         campaign_level = int(get_creature_param(chat_id, "Campaign_level"))
         opponent_chat_id = f"Creature_{campaign_level + 1}"
-        set_creature_param(opponent_chat_id, "Campaign_level", campaign_level+1)
+        set_creature_param(chat_id, "Campaign_level", campaign_level+1)
 
         random_opponent_creature_appearance_path = get_creature_appearance_path(opponent_chat_id)
         opponent_player_creature_name = get_campaign_creature_param(opponent_chat_id, "name")
