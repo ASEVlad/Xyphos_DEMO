@@ -254,9 +254,18 @@ finish_campaign_message = (
     "\nGood Luck anf Have Fun!"
 )
 
-contacts_message = ""
+contacts_message = (
+    "Contacts are more important than ever in our time."
+    "\nWe’re glad you understand that!"
+    "\nHere’s our Linktree, where you can find all the links you might need:"
+)
 
-executive_summary_message = ""
+executive_summary_message = (
+    "Mmm... we see your determination."
+    "\nAnd we truly appreciate it!"
+    "\nThat’s why we’re sharing access to our Executive Summary:"
+    "\nhttps://drive.google.com/file/d/13liPJ5_kwbU2PwcPZ3daUqLVeMBwPuIO/view?usp=sharing"
+)
 
 def generate_check_message():
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))

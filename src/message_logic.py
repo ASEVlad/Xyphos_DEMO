@@ -132,35 +132,35 @@ def handle_stats_action(bot: Bot, chat_id: str):
             creature_stats_response = fetch_ai_response(prompt_content)
             if len(creature_stats_response) <= 200:
                 bot.send_message(chat_id=chat_id, text=ai_error_message)
-                raise
 
-        set_creature_param(chat_id, "stat_description", creature_stats_response)
+        if len(creature_stats_response) <= 200:
+            set_creature_param(chat_id, "stat_description", creature_stats_response)
 
-        stats_parsed = parse_stats(creature_stats_response)
-        set_stats(chat_id, stats_parsed)
+            stats_parsed = parse_stats(creature_stats_response)
+            set_stats(chat_id, stats_parsed)
 
-        creature_features = extract_creature_features(creature_stats_response)
-        set_creature_param(chat_id, "Feature", creature_features)
+            creature_features = extract_creature_features(creature_stats_response)
+            set_creature_param(chat_id, "Feature", creature_features)
 
-        finish_creature_mint_message = generate_finish_creature_mint_message_1(chat_id)
-        bot.send_message(chat_id=chat_id, text=finish_creature_mint_message)
-        time.sleep(1)
+            finish_creature_mint_message = generate_finish_creature_mint_message_1(chat_id)
+            bot.send_message(chat_id=chat_id, text=finish_creature_mint_message)
+            time.sleep(1)
 
-        random_opponent_creature_appearance_path = get_creature_appearance_path(chat_id)
-        with open(random_opponent_creature_appearance_path, "rb") as photo:
-            bot.send_photo(
-                chat_id=chat_id,
-                photo=photo,
-                caption=generate_finish_creature_mint_message_2(chat_id)
-            )
-        time.sleep(1)
+            random_opponent_creature_appearance_path = get_creature_appearance_path(chat_id)
+            with open(random_opponent_creature_appearance_path, "rb") as photo:
+                bot.send_photo(
+                    chat_id=chat_id,
+                    photo=photo,
+                    caption=generate_finish_creature_mint_message_2(chat_id)
+                )
+            time.sleep(1)
 
-        finish_creature_mint_message = generate_finish_creature_mint_message_3(chat_id)
-        bot.send_message(chat_id=chat_id, text=finish_creature_mint_message)
+            finish_creature_mint_message = generate_finish_creature_mint_message_3(chat_id)
+            bot.send_message(chat_id=chat_id, text=finish_creature_mint_message)
 
-        time.sleep(20)
+            time.sleep(20)
 
-        bot.send_message(chat_id=chat_id, text=try_pvp_message)
+            bot.send_message(chat_id=chat_id, text=try_pvp_message)
 
         logger.info(f"Chat_id {chat_id}: Stats action complete")
         set_user_status(chat_id, "status", "Ready")
