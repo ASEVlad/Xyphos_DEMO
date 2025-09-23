@@ -15,30 +15,31 @@ from src.utils import get_creature_appearance_path, set_stats, set_creature_para
 
 def handle_operation(bot: Bot, chat_id: str, message_text: str):
     logger.info(f"Chat_id {chat_id}: Received message: {message_text}")
-    if message_text.lower().startswith("/mint"):
-        threading.Thread(target=handle_mint_action, args=(bot, chat_id, message_text)).start()
-    elif message_text.lower().startswith("/name"):
-        threading.Thread(target=handle_name_action, args=(bot, chat_id, message_text)).start()
-    elif message_text.lower().startswith("/stats"):
-        threading.Thread(target=handle_stats_action, args=(bot, chat_id)).start()
-    elif message_text.lower().startswith("/training"):
-        threading.Thread(target=handle_training_action, args=(bot, chat_id, message_text)).start()
-    elif message_text.lower().startswith("/pvp"):
-        threading.Thread(target=handle_pvp_action, args=(bot, chat_id)).start()
-    elif message_text.lower().startswith("/contacts"):
-        threading.Thread(target=handle_contacts_action, args=(bot, chat_id)).start()
-    elif message_text.lower().startswith("/executive_summary"):
-        threading.Thread(target=handle_executive_summary_action, args=(bot, chat_id)).start()
-    elif message_text.lower().startswith("/info"):
-        threading.Thread(target=handle_info_action, args=(bot, chat_id)).start()
-    elif message_text.lower().startswith("/check"):
-        threading.Thread(target=handle_check_action, args=(bot, chat_id)).start()
-    elif message_text.lower().startswith("/campaign"):
-        threading.Thread(target=handle_campaign_action, args=(bot, chat_id)).start()
-    elif message_text.lower().startswith("/reset_user"):
-        threading.Thread(target=handle_reset_user_action, args=(bot, chat_id, message_text)).start()
-    else:
-        bot.send_message(chat_id=chat_id, text=wrong_command_message)
+    if message_text:
+        if message_text.lower().startswith("/mint"):
+            threading.Thread(target=handle_mint_action, args=(bot, chat_id, message_text)).start()
+        elif message_text.lower().startswith("/name"):
+            threading.Thread(target=handle_name_action, args=(bot, chat_id, message_text)).start()
+        elif message_text.lower().startswith("/stats"):
+            threading.Thread(target=handle_stats_action, args=(bot, chat_id)).start()
+        elif message_text.lower().startswith("/training"):
+            threading.Thread(target=handle_training_action, args=(bot, chat_id, message_text)).start()
+        elif message_text.lower().startswith("/pvp"):
+            threading.Thread(target=handle_pvp_action, args=(bot, chat_id)).start()
+        elif message_text.lower().startswith("/contacts"):
+            threading.Thread(target=handle_contacts_action, args=(bot, chat_id)).start()
+        elif message_text.lower().startswith("/executive_summary"):
+            threading.Thread(target=handle_executive_summary_action, args=(bot, chat_id)).start()
+        elif message_text.lower().startswith("/info"):
+            threading.Thread(target=handle_info_action, args=(bot, chat_id)).start()
+        elif message_text.lower().startswith("/check"):
+            threading.Thread(target=handle_check_action, args=(bot, chat_id)).start()
+        elif message_text.lower().startswith("/campaign"):
+            threading.Thread(target=handle_campaign_action, args=(bot, chat_id)).start()
+        elif message_text.lower().startswith("/reset_user"):
+            threading.Thread(target=handle_reset_user_action, args=(bot, chat_id, message_text)).start()
+        else:
+            bot.send_message(chat_id=chat_id, text=wrong_command_message)
     logger.info(f"Chat_id {chat_id}: Operation was successfully processed")
 
 
