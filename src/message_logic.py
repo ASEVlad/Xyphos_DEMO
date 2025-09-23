@@ -362,7 +362,7 @@ def handle_campaign_action(bot: Bot, chat_id: str):
         opponent_chat_id = f"Creature_{campaign_level + 1}"
         set_creature_param(chat_id, "Campaign_level", campaign_level+1)
 
-        if campaign_level <= 4:
+        if campaign_level <= 3:
             random_opponent_creature_appearance_path = get_creature_appearance_path(opponent_chat_id)
             opponent_player_creature_name = get_campaign_creature_param(opponent_chat_id, "name")
             with open(random_opponent_creature_appearance_path, "rb") as photo:
