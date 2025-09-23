@@ -232,7 +232,27 @@ finish_training_message = (
     "\nNow. It is your turn to choose destiny for your creature"
 )
 
-info_message = ""
+general_info_message = (
+    "\n1. Generate new creature - type /mint and description, then /name the name of it, after type /stats."
+    "\n2. Play against other people creatures - just press /pvp"
+    "\n3. Campaign Mode with more levels - just press /campaign"
+    "\n4. Train your creature - type /training and the orders text"
+    "\n5. Get contacts of the founder - type /contacts"
+    "\n6. Get executive summary - type /executive_summary"
+)
+
+info_message = (
+    f"Here are all the options that we have for now"
+    f"{general_info_message}"
+)
+
+finish_campaign_message = (
+    "That is the end!"
+    "\nIf you want to play a bit more - then you are more then welcome. Here are your options:"
+    f"{general_info_message}"
+    "\n"
+    "\nGood Luck anf Have Fun!"
+)
 
 contacts_message = ""
 

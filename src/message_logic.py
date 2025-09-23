@@ -10,7 +10,7 @@ from src.gpt_helper.llm_helper import generate_creature_appearance, fetch_ai_res
 from src.utils import get_creature_appearance_path, set_stats, set_creature_param, \
     get_random_opponent_chat_id, get_random_arena, parse_stats, extract_creature_features, parse_battle_text, \
     save_battle_records_to_csv, parse_stats_and_feature, update_stats_and_feature, get_stats, \
-    wait_till_proper_user_status, set_user_status, get_campaign_arena, get_campaign_creature_param
+    wait_till_proper_user_status, set_user_status, get_campaign_arena, get_campaign_creature_param, reset_user
 
 
 def handle_operation(bot: Bot, chat_id: str, message_text: str):
@@ -35,6 +35,8 @@ def handle_operation(bot: Bot, chat_id: str, message_text: str):
         threading.Thread(target=handle_check_action, args=(bot, chat_id)).start()
     elif message_text.lower().startswith("/campaign"):
         threading.Thread(target=handle_campaign_action, args=(bot, chat_id)).start()
+    elif message_text.lower().startswith("/reset_user"):
+        threading.Thread(target=handle_reset_user_action, args=(bot, chat_id, message_text)).start()
     else:
         bot.send_message(chat_id=chat_id, text=wrong_command_message)
     logger.info(f"Chat_id {chat_id}: Operation was successfully processed")
@@ -48,6 +50,10 @@ def handle_mint_action(bot: Bot, chat_id: str, message_text: str):
         logger.info(f"Chat_id {chat_id}: Starting mint action")
         photo_ready_event = threading.Event()
         threading.Thread(target=run_creature_generation, args=(bot, chat_id, message_text, photo_ready_event)).start()
+
+        set_creature_param(chat_id, "Experience", 0)
+        set_creature_param(chat_id, "Campaign_level", 0)
+
         time.sleep(15)
         bot.send_message(chat_id=chat_id, text=proper_mint_message_2)
         time.sleep(15)
@@ -390,7 +396,7 @@ def handle_campaign_action(bot: Bot, chat_id: str):
 
         time.sleep(30)
 
-        bot.send_message(chat_id=chat_id, text=try_training_message)
+        bot.send_message(chat_id=chat_id, text=finish_campaign_message)
 
         logger.info(f"Chat_id {chat_id}: Campaign action complete")
         set_user_status(chat_id, "status", "Ready")
@@ -398,3 +404,19 @@ def handle_campaign_action(bot: Bot, chat_id: str):
         logger.error(f"Chat_ID {chat_id}: {error}")
         bot.send_message(chat_id=chat_id, text=error_message)
 
+
+# NAME
+def handle_reset_user_action(bot: Bot, chat_id: str, message_text: str):
+    try:
+        logger.info(f"Chat_id {chat_id}: Starting name action")
+        if message_text.strip() == "/reset_user":
+            logger.info(f"Chat_id {chat_id}: Reset action is completed. But nobody was reseted")
+        else:
+            user_chat_id = message_text[10:].strip()
+            reset_user(user_chat_id)
+            bot.send_message(chat_id=chat_id, text=proper_name_message)
+
+        logger.info(f"Chat_id {chat_id}: Reset action complete")
+    except Exception as error:
+        logger.error(f"Chat_ID {chat_id}: {error}")
+        bot.send_message(chat_id=chat_id, text=error_message)

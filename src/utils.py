@@ -390,3 +390,12 @@ def get_campaign_creature_param(chat_id: str, param: str) -> str | None:
     if not match.empty:
         return match.iloc[0]
     return None
+
+def reset_user(user_chat_id: str):
+    # Load
+    df = pd.read_csv(CREATURE_DB_FILE)
+
+    df = df[df["chat_id"].astype(str) != str(user_chat_id)]
+
+    # Save back
+    df.to_csv(CREATURE_DB_FILE, index=False)
