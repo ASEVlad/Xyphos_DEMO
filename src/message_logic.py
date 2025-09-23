@@ -131,7 +131,11 @@ def handle_stats_action(bot: Bot, chat_id: str):
         if len(creature_stats_response) <= 200:
             creature_stats_response = fetch_ai_response(prompt_content)
             if len(creature_stats_response) <= 200:
-                bot.send_message(chat_id=chat_id, text=ai_error_message)
+                creature_stats_response = fetch_ai_response(prompt_content)
+                if len(creature_stats_response) <= 200:
+                    creature_stats_response = fetch_ai_response(prompt_content)
+                    if len(creature_stats_response) <= 200:
+                        bot.send_message(chat_id=chat_id, text=ai_error_message)
 
         if len(creature_stats_response) <= 200:
             set_creature_param(chat_id, "stat_description", creature_stats_response)
