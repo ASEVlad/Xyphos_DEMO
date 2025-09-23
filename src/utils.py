@@ -376,7 +376,7 @@ def get_user_status(chat_id: str, param: str) -> str | None:
 
 
 def wait_till_proper_user_status(chat_id):
-    while get_user_status(chat_id, "status") != "In Progress":
+    while get_user_status(chat_id, "status") == "In Progress":
         time.sleep(1)
 
 

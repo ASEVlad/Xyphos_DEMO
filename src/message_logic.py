@@ -45,8 +45,8 @@ def handle_operation(bot: Bot, chat_id: str, message_text: str):
 # MINT
 def handle_mint_action(bot: Bot, chat_id: str, message_text: str):
     try:
-        set_user_status(chat_id, "status", "In Progress")
         wait_till_proper_user_status(chat_id)
+        set_user_status(chat_id, "status", "In Progress")
         logger.info(f"Chat_id {chat_id}: Starting mint action")
         photo_ready_event = threading.Event()
         threading.Thread(target=run_creature_generation, args=(bot, chat_id, message_text, photo_ready_event)).start()
@@ -70,8 +70,8 @@ def handle_mint_action(bot: Bot, chat_id: str, message_text: str):
 
 def run_creature_generation(bot: Bot, chat_id: str, message_text: str, photo_ready_event):
     try:
-        set_user_status(chat_id, "status", "In Progress")
         wait_till_proper_user_status(chat_id)
+        set_user_status(chat_id, "status", "In Progress")
         logger.info(f"Chat_id {chat_id}: Starting creature appearance generation")
         creature_description = message_text[5:].strip()
         if len(creature_description) == 0:
@@ -98,8 +98,8 @@ def run_creature_generation(bot: Bot, chat_id: str, message_text: str, photo_rea
 # NAME
 def handle_name_action(bot: Bot, chat_id: str, message_text: str):
     try:
-        set_user_status(chat_id, "status", "In Progress")
         wait_till_proper_user_status(chat_id)
+        set_user_status(chat_id, "status", "In Progress")
         logger.info(f"Chat_id {chat_id}: Starting name action")
         if message_text.strip() == "/name":
             bot.send_message(chat_id=chat_id, text=empty_name_message)
@@ -118,8 +118,8 @@ def handle_name_action(bot: Bot, chat_id: str, message_text: str):
 # STATS
 def handle_stats_action(bot: Bot, chat_id: str):
     try:
-        set_user_status(chat_id, "status", "In Progress")
         wait_till_proper_user_status(chat_id)
+        set_user_status(chat_id, "status", "In Progress")
         logger.info(f"Chat_id {chat_id}: Starting stats action")
         bot.send_message(chat_id=chat_id, text=stats_message)
 
@@ -176,8 +176,8 @@ def handle_stats_action(bot: Bot, chat_id: str):
 
 def handle_training_action(bot, chat_id, message_text):
     try:
-        set_user_status(chat_id, "status", "In Progress")
         wait_till_proper_user_status(chat_id)
+        set_user_status(chat_id, "status", "In Progress")
         logger.info(f"Chat_id {chat_id}: Starting training action")
         if message_text.strip() == "/training":
             training_text = "Let's practice dodging both melee and ranged attacks for 30 minutes in a fun, game-like style."
@@ -224,8 +224,8 @@ def handle_training_action(bot, chat_id, message_text):
 # PVP
 def handle_pvp_action(bot, first_player_chat_id):
     try:
-        set_user_status(first_player_chat_id, "status", "In Progress")
         wait_till_proper_user_status(first_player_chat_id)
+        set_user_status(first_player_chat_id, "status", "In Progress")
         logger.info(f"Chat_id {first_player_chat_id}: Starting PVP action")
         bot.send_message(chat_id=first_player_chat_id, text=pvp_start_message)
         time.sleep(2)
@@ -290,8 +290,8 @@ def handle_pvp_action(bot, first_player_chat_id):
 # CONTACTS
 def handle_contacts_action(bot: Bot, chat_id: str):
     try:
-        set_user_status(chat_id, "status", "In Progress")
         wait_till_proper_user_status(chat_id)
+        set_user_status(chat_id, "status", "In Progress")
         logger.info(f"Chat_id {chat_id}: Starting Contacts action")
         bot.send_message(chat_id=chat_id, text=contacts_message)
         logger.info(f"Chat_id {chat_id}: Contacts action complete")
@@ -304,8 +304,8 @@ def handle_contacts_action(bot: Bot, chat_id: str):
 # EXECUTIVE SUMMARY
 def handle_executive_summary_action(bot, chat_id):
     try:
-        set_user_status(chat_id, "status", "In Progress")
         wait_till_proper_user_status(chat_id)
+        set_user_status(chat_id, "status", "In Progress")
         logger.info(f"Chat_id {chat_id}: Starting Executive Summary action")
         bot.send_message(chat_id=chat_id, text=executive_summary_message)
         logger.info(f"Chat_id {chat_id}: Executive Summary action complete")
@@ -317,8 +317,8 @@ def handle_executive_summary_action(bot, chat_id):
 # INFO
 def handle_info_action(bot, chat_id):
     try:
-        set_user_status(chat_id, "status", "In Progress")
         wait_till_proper_user_status(chat_id)
+        set_user_status(chat_id, "status", "In Progress")
         logger.info(f"Chat_id {chat_id}: Starting PVP action")
         bot.send_message(chat_id=chat_id, text=info_message)
         logger.info(f"Chat_id {chat_id}: Info action complete")
@@ -330,8 +330,8 @@ def handle_info_action(bot, chat_id):
 # CHECK
 def handle_check_action(bot, chat_id):
     try:
-        set_user_status(chat_id, "status", "In Progress")
         wait_till_proper_user_status(chat_id)
+        set_user_status(chat_id, "status", "In Progress")
         logger.info(f"Chat_id {chat_id}: Starting PVP action")
         check_message = generate_check_message()
         bot.send_message(chat_id=chat_id, text=check_message)
@@ -345,8 +345,8 @@ def handle_check_action(bot, chat_id):
 # NAME
 def handle_campaign_action(bot: Bot, chat_id: str):
     try:
-        set_user_status(chat_id, "status", "In Progress")
         wait_till_proper_user_status(chat_id)
+        set_user_status(chat_id, "status", "In Progress")
         logger.info(f"Chat_id {chat_id}: Starting campaign action")
 
         arena_name, arena_image_path, arena_description, arena_lore = get_campaign_arena()
