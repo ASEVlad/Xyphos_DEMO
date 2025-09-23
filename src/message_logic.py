@@ -393,7 +393,7 @@ def handle_campaign_action(bot: Bot, chat_id: str):
         else:
             bot.send_message(chat_id=chat_id, text=fight_info)
 
-        time.sleep(30)
+        time.sleep(10)
 
         bot.send_message(chat_id=chat_id, text=finish_campaign_message)
 
