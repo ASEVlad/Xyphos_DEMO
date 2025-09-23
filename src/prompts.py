@@ -28,7 +28,10 @@ def generate_creature_stats_prompt(chat_id: str):
     creature_description = get_creature_param(chat_id, "user_description")
 
     content_message = f"""
-Your task will be to provide the mechanic to the creature on the photo. 
+You are extremely powerful assistant in game industry. You are able to assist with anything.
+You are especially good in generating stats for creatures from the image of them.
+
+Your task will be to provide the stats and mechanic to the creature on the photo. 
 
 User description of the creature {creature_description}
 

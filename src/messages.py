@@ -258,6 +258,7 @@ contacts_message = (
     "Contacts are more important than ever in our time."
     "\nWe’re glad you understand that!"
     "\nHere’s our Linktree, where you can find all the links you might need:"
+    "\nhttps://linktr.ee/asevlad"
 )
 
 executive_summary_message = (
