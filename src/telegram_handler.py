@@ -55,17 +55,18 @@ def handle_telegram_updates():
                     continue
 
                 logger.info("There is one more update message to handle!")
-                if message_text.lower() == "/start":
-                    if chat_id not in load_registered_users():
-                        save_registered_user(chat_id)
-                        bot.send_message(chat_id=chat_id, text=welcome_message)
-                        logger.info(f"New user registered: {chat_id}")
+                if message_text:
+                    if message_text.lower() == "/start":
+                        if chat_id not in load_registered_users():
+                            save_registered_user(chat_id)
+                            bot.send_message(chat_id=chat_id, text=welcome_message)
+                            logger.info(f"New user registered: {chat_id}")
+                        else:
+                            bot.send_message(chat_id=chat_id, text=repeated_login)
+                            logger.info(f"User {chat_id} already registered.")
                     else:
-                        bot.send_message(chat_id=chat_id, text=repeated_login)
-                        logger.info(f"User {chat_id} already registered.")
-                else:
-                    handle_operation(bot, chat_id, message_text)
-                    time.sleep(0.5)
+                        handle_operation(bot, chat_id, message_text)
+                        time.sleep(0.5)
 
                 handled_updates.add(update_id)
                 save_handled_updates(handled_updates)
