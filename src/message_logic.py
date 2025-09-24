@@ -62,7 +62,6 @@ def handle_mint_action(bot: Bot, chat_id: str, message_text: str):
         bot.send_message(chat_id=chat_id, text=proper_mint_message_3)
         photo_ready_event.set()
         logger.info(f"Chat_id {chat_id}: Finished mint action")
-        set_user_status(chat_id, "status", "Ready")
 
     except Exception as error:
         logger.error(f"Chat_ID {chat_id}: {error}")
@@ -71,8 +70,6 @@ def handle_mint_action(bot: Bot, chat_id: str, message_text: str):
 
 def run_creature_generation(bot: Bot, chat_id: str, message_text: str, photo_ready_event):
     try:
-        wait_till_proper_user_status(chat_id)
-        set_user_status(chat_id, "status", "In Progress")
         logger.info(f"Chat_id {chat_id}: Starting creature appearance generation")
         creature_description = message_text[5:].strip()
         if len(creature_description) == 0:
